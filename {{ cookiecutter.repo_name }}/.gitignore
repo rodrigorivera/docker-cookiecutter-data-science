@@ -1,3 +1,10 @@
+*.csv
+output/
+*.sav
+*.pkl
+
+pyramid/
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -80,3 +87,7 @@ target/
 
 # Mac OS-specific storage files
 .DS_Store
+
+.s/
+src/.s/
+.Trash-0/
