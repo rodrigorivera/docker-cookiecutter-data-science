@@ -16,7 +16,7 @@ chmod g+rws "$NBDIR2"
 # set the default permissions for new files to group-writable
 #setfacl -d -m g::rwx "$NBDIR"
 #setfacl -d -m g::rwx "$NBDIR2"
-docker container exec nr_clustering_notebook-server_1 sh -c 'apt-get update -qq && \
+docker container exec {{ cookiecutter.project_name }}_notebook-server_1 sh -c 'apt-get update -qq && \
 apt-get install -qqy --no-install-recommends git wget && \
 pip --no-cache-dir install -U pip && \
 pip --no-cache-dir install -U pipenv && \
