@@ -2,8 +2,8 @@
 version: '3'
 services:
    notebook-cpu-server:
-      image: notebook_cpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: cpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      image: notebook_cpu_image:{{cookiecutter.username}}/{{cookiecutter.project_name}}
+      container_name: cpu_container:{{cookiecutter.username}}/{{cookiecutter.project_name}}
       build: docker/cpu
       ports:
          - "0.0.0.0::8890"
@@ -16,8 +16,8 @@ services:
 version: '2.3'
 services:
    notebook-gpu-server:
-      image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      image: notebook_gpu_image:{{cookiecutter.username}}/{{cookiecutter.project_name}}
+      container_name: gpu_container:{{cookiecutter.username}}/{{cookiecutter.project_name}}
       build: docker/gpu
       runtime: nvidia
       ports:
