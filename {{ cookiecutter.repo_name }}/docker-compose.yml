@@ -1,14 +1,30 @@
+{%- if cookiecutter.processor == "CPU" -%}
 version: '3'
 services:
-   notebook-server:
-      image: notebook_image-{{cookiecutter.project_name}}
-      container_name: notebook_container-{{cookiecutter.project_name}}
-      build: .
+   notebook-cpu-server:
+      image: cpu_image-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      container_name: cpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      build: docker/cpu
       ports:
-         - "0.0.0.0::8888"
+         - "0.0.0.0::8890"
       volumes:
          - ./:/mnt
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='' --ip=* --allow-root && /bin/bash"
       stdin_open: true
       tty: true
-
+{%- elif cookiecutter.processor == "GPU" -%}
+version: '2.3'
+services:
+   notebook-gpu-server:
+      image: gpu_image-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      build: docker/gpu
+      runtime: nvidia
+      ports:
+         - "0.0.0.0:8890:8888"
+      volumes:
+         - ./:/root
+      ipc: host
+      entrypoint: bash -c "jupyter notebook --NotebookApp.token='' --ip=* --allow-root --notebook-dir='/root"
+      stdin_open: true
+      tty: true
