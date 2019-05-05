@@ -425,6 +425,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         tsfresh \
         gpy \
         catboost \
+        lightgbm \
         pyyaml \
         seaborn \
         statsmodels \
