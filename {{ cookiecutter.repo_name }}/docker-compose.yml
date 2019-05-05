@@ -28,3 +28,4 @@ services:
       entrypoint: bash -c "jupyter notebook --NotebookApp.token='' --ip=* --allow-root --notebook-dir='/root"
       stdin_open: true
       tty: true
+{% endif %}
