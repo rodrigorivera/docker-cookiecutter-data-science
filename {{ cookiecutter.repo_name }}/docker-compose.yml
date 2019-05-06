@@ -17,7 +17,7 @@ version: '2.3'
 services:
    notebook-gpu-server:
       image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: gpu_container-{{cookiecutter.username}}/{{cookiecutter.project_name}}
+      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
       build: docker/gpu
       runtime: nvidia
       ports:
@@ -25,7 +25,7 @@ services:
       volumes:
          - ./:/root
       ipc: host
-      entrypoint: bash -c "jupyter notebook --NotebookApp.token='' --ip=* --allow-root --notebook-dir='/root"
+      command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
       stdin_open: true
       tty: true
 {% endif %}
