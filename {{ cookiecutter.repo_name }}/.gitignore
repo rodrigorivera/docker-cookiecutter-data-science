@@ -1,8 +1,11 @@
 *.csv
-output/
 *.sav
 *.pkl
 *.zip
+*.xls
+*.tar
+*.tar.gz
+*.tar.bz2 
 
 pyramid/
 
@@ -82,9 +85,6 @@ target/
 
 # Jupyter NB Checkpoints
 .ipynb_checkpoints/
-
-# exclude data from source control by default
-/data/
 
 # Mac OS-specific storage files
 .DS_Store
