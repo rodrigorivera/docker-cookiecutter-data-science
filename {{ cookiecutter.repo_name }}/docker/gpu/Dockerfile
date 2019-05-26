@@ -79,6 +79,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libpng-dev \
         libboost-all-dev \
         libsdl2-dev \
+        libcurl4-openssl-dev \
         openssh-client \
         openssh-server \
         swig \
@@ -441,6 +442,11 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         rpy2 \
         cufflinks \
         magi \
+        xarray \
+        engarde \
+        featuretools \
+        Ripser \
+        scikit-tda \
         && \
 
 # ==================================================================
@@ -454,7 +460,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         apt update \
         && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        r-base \   
+        r-base \ 
+        r-base-dev \  
         && \
 
 # ==================================================================
