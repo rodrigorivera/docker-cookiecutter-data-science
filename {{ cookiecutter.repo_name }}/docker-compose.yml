@@ -6,10 +6,10 @@ services:
       container_name: cpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
       build: docker/cpu
       ports:
-         - "0.0.0.0::8890"
+         - "0.0.0.0:8870:8888"
       volumes:
          - ./:/mnt
-      entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='' --ip=* --allow-root && /bin/bash"
+      entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='1234r' --ip=0.0.0.0 --allow-root && /bin/bash"
       stdin_open: true
       tty: true
 {%- elif cookiecutter.processor == "GPU" -%}
