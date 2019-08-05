@@ -12,16 +12,32 @@ services:
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='1234r' --ip=0.0.0.0 --allow-root && /bin/bash"
       stdin_open: true
       tty: true
-{%- elif cookiecutter.processor == "GPU" -%}
+{%- elif cookiecutter.processor == "Cuda10" -%}
 version: '2.3'
 services:
    notebook-gpu-server:
       image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
       container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      build: docker/gpu
+      build: docker/gpu_cuda10_cudnn7_devel_ubuntu1804
       runtime: nvidia
       ports:
-         - "0.0.0.0:8890:8888"
+         - "0.0.0.0:8081:8888"
+      volumes:
+         - ./:/root
+      ipc: host
+      command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token= --notebook-dir='/root'
+      stdin_open: true
+      tty: true
+{%- elif cookiecutter.processor == "Cuda92" -%}
+version: '2.3'
+services:
+   notebook-gpu-server:
+      image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      build: docker/gpu_cuda92_cudnn7_devel_ubuntu1804
+      runtime: nvidia
+      ports:
+         - "0.0.0.0:8081:8888"
       volumes:
          - ./:/root
       ipc: host
