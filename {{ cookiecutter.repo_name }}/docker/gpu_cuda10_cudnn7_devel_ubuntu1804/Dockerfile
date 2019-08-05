@@ -69,6 +69,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         htop \
         zip \
         unzip \
+        libssl-dev \
         libncurses5-dev \
         libncursesw5-dev \
         libopenmpi-dev \
@@ -205,6 +206,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 
     $PIP_INSTALL \
         jupyter \
+        jupyterlab \
         && \
 
 # ==================================================================
