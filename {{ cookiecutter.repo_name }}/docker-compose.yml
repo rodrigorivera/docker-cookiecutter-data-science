@@ -2,8 +2,8 @@
 version: '3'
 services:
    notebook-cpu-server:
-      image: notebook_cpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: cpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      image: notebook_cpu_image:{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
+      container_name: cpu_container-{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
       build: docker/cpu
       ports:
          - "0.0.0.0:8870:8888"
@@ -16,8 +16,8 @@ services:
 version: '2.3'
 services:
    notebook-gpu-server:
-      image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      image: notebook_gpu_image:{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
+      container_name: gpu_container-{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
       build: docker/gpu_cuda10_cudnn7_devel_ubuntu1804
       runtime: nvidia
       ports:
@@ -32,8 +32,8 @@ services:
 version: '2.3'
 services:
    notebook-gpu-server:
-      image: notebook_gpu_image:{{cookiecutter.username}}-{{cookiecutter.project_name}}
-      container_name: gpu_container-{{cookiecutter.username}}-{{cookiecutter.project_name}}
+      image: notebook_gpu_image:{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
+      container_name: gpu_container-{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
       build: docker/gpu_cuda92_cudnn7_devel_ubuntu1804
       runtime: nvidia
       ports:

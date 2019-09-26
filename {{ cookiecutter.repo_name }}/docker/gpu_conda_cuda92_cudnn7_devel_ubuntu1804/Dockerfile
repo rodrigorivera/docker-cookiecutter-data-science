@@ -253,7 +253,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         https://download.pytorch.org/whl/nightly/cu90/torch_nightly.html \
         && \
     $PIP_INSTALL \
-        git+https://github.com/pytorch/vision.git \
+        torchvision \
         && \
 
 # ==================================================================
