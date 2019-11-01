@@ -3,7 +3,7 @@
 {% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else '' %}
 {% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.processor == "GPU") else cuda_version %}
 {% set volume = './:/mnt' if cookiecutter.processor == "CPU" else './:/root' %}
-version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}''
+version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
 services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
       image: img_{{ processor }}_{{ libraries }}:{{ cookiecutter.username.lower().replace(' ', '_') }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}
