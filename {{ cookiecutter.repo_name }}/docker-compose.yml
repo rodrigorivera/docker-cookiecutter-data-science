@@ -1,23 +1,23 @@
 {% set processor = 'cpu' if cookiecutter.processor == "CPU" else 'gpu' %}
 {% set libraries = 'min' if cookiecutter.libraries == "Minimal" else 'full' %}
-{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookicutter.process == "GPU") else '' %}
-{% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookicutter.process == "GPU") %}
-version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
+{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.process == "GPU") else '' %}
+{% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.process == "GPU") %}
+version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}''
 services:
-   notebook-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
+    notebook-{{ processor }}-server:  
       image: ntbk_{{ processor }}_img_{{ libraries }}:{{ cookiecutter.username.lower().replace(' ', '_') }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}
       container_name: ntbk_{{processor}}_cntnr-{{cookiecutter.username.lower().replace(' ', '_')}}-{{cookiecutter.project_name.lower().replace(' ', '_')}}
       build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       {%- if cookiecutter.processor == "CPU" -%}
       volumes:
          - ./:/mnt
-      entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{cookicutter.password}}' --ip=0.0.0.0 --allow-root && /bin/bash"
+      entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{cookiecutter.password}}' --ip=0.0.0.0 --allow-root && /bin/bash"
       {%- elif cookiecutter.processor == "GPU" -%}
       volumes:
          - ./:/root
       runtime: nvidia
       ipc: host
-      command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{cookicutter.password}}' --notebook-dir='/root'
+      command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{cookiecutter.password}}' --notebook-dir='/root'
       {% endif %}
       ports:
          - "0.0.0.0:{{cookiecutter.port}}:8888"
