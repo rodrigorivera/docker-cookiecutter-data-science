@@ -6,8 +6,8 @@
 version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
 services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
-      image: img_{{ processor }}_{{ libraries }}:{{ cookiecutter.username.lower().replace(' ', '_') }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}
-      container_name: cntnr_{{ processor }}_{{ libraries }}-{{ cookiecutter.username.lower().replace(' ', '_') }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}
+      image: img_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:{{ cookiecutter.username.lower().replace(' ', '_') }}
+      container_name: cntnr_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}-{{ cookiecutter.username.lower().replace(' ', '_') }}
       build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       volumes:
          - {{ volume }}
