@@ -1,0 +1,28 @@
+name: base                                                                   
+channels:
+  - base
+  - rapidsai
+  - nvidia                                                             
+  - conda-forge
+  - anaconda                                                              
+dependencies:
+  - python=3.7
+  - pip
+  - setuptools
+  - rapids=0.11
+  - dask                                                          
+  - pandas
+  - scikit-learn
+  - numpy
+  - scipy
+  - cloudpickle
+  - matplotlib
+  - Cython
+  - future
+  - protobuf
+  - enum34
+  - pyyaml
+  - typing
+  - jupyterlab
+  - jupyter
+  - py-xgboost-gpu
