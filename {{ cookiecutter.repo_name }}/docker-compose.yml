@@ -15,6 +15,7 @@ services:
       {%- if cookiecutter.processor == "CPU" -%}
 
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{ cookiecutter.password }}' --ip=0.0.0.0 --allow-root && /bin/bash"
+
       {%- elif cookiecutter.processor == "GPU" -%}
 
       runtime: nvidia
