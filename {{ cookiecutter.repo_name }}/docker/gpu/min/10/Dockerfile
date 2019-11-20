@@ -90,7 +90,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         && \
     add-apt-repository ppa:deadsnakes/ppa && \
     apt-get update && \
-    
+
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         libatlas-base-dev \
         graphviz \
@@ -114,14 +114,14 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         libsnappy-dev \
         protobuf-compiler \
         && \
-        
+
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
         openmpi-bin \
         libpng-dev \
         libjpeg-dev \
         libtiff-dev \
         && \
-        
+
 # ==================================================================
 # R
 # ------------------------------------------------------------------
@@ -133,12 +133,12 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
         apt update \
         && \
     DEBIAN_FRONTEND=noninteractive $APT_INSTALL \
-        r-base \ 
-        r-base-dev \  
+        r-base \
+        r-base-dev \
         && \
 # ==================================================================
 # python
-# ------------------------------------------------------------------    
+# ------------------------------------------------------------------
     wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
@@ -146,7 +146,7 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
     echo "conda activate base" >> ~/.bashrc
-    
+
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
     CONDA_INSTALL="conda install -y" && \
@@ -160,11 +160,11 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 # boost
 # ------------------------------------------------------------------
 
-    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz && \
-    tar -zxf ~/boost.tar.gz -C ~ && \
-    cd ~/boost_* && \
-    ./bootstrap.sh --with-python=python3.7 && \
-    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
+#    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz && \
+#    tar -zxf ~/boost.tar.gz -C ~ && \
+#    cd ~/boost_* && \
+#    ./bootstrap.sh && \
+#    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
 
 # ==================================================================
 # pytorch

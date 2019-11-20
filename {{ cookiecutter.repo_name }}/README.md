@@ -15,6 +15,14 @@ Project Organization
     │   ├── processed      <- The final, canonical data sets for modeling.
     │   └── raw            <- The original, immutable data dump.
     │
+    │
+    ├── docker               <- Configuration files to build the docker container
+    │   ├── Dockerfile       <- Dockerfiles for GPU and CPU with Miniconda
+    │   └── environment.yml  <- The requirements file for reproducing the analysis environment, e.g.
+    │                           generated with `conda activate base`. Libraries in this environment
+    │                           are built during the container creation process.
+    │
+    │
     ├── docs               <- A default Sphinx project; see sphinx-doc.org for details
     │
     ├── models             <- Trained and serialized models, model predictions, or model summaries
@@ -30,8 +38,6 @@ Project Organization
     ├── reports            <- Generated analysis as HTML, PDF, LaTeX, etc.
     │   └── figures        <- Generated graphics and figures to be used in reporting
     │
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │                         generated with `pip freeze > requirements.txt`
     │
     ├── scripts            <- Helper scripts to manage the docker container
     │
