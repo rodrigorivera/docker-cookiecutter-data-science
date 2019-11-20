@@ -11,13 +11,10 @@ services:
       build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       volumes:
          - {{ volume }}
-      
       {%- if cookiecutter.processor == "CPU" -%}
-
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{ cookiecutter.password }}' --ip=0.0.0.0 --allow-root && /bin/bash"
-
-      {%- elif cookiecutter.processor == "GPU" -%}
-
+      {% endif %}
+      {%- if cookiecutter.processor == "GPU" -%}
       runtime: nvidia
       ipc: host
       command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{ cookiecutter.password }}' --notebook-dir='/root'
