@@ -8,9 +8,10 @@ services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
       image: img_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:{{ cookiecutter.username.lower().replace(' ', '_') }}
       container_name: cntnr_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}-{{ cookiecutter.username.lower().replace(' ', '_') }}
-      build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       volumes:
          - {{ volume }}
+      build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
+      
       {%- if cookiecutter.processor == "CPU" -%}
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{ cookiecutter.password }}' --ip=0.0.0.0 --allow-root && /bin/bash"
       {% endif %}
