@@ -8,9 +8,9 @@ services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
       image: img_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:{{ cookiecutter.username.lower().replace(' ', '_') }}
       container_name: cntnr_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}-{{ cookiecutter.username.lower().replace(' ', '_') }}
+      build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       volumes:
          - {{ volume }}
-      build: docker/{{ processor }}/{{ libraries }}{{ cuda_version }}
       # Here Cookiecutter will try to append based on CPU or GPU
       {%- if cookiecutter.processor == "CPU" -%}
       # Entry Point for CPU
@@ -22,7 +22,6 @@ services:
       ipc: host
       command: jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{ cookiecutter.password }}' --notebook-dir='/root'
       {% endif %}
-      # Ports for Jupyter
       ports:
          - "0.0.0.0:{{ cookiecutter.port }}:8888"
       stdin_open: true
