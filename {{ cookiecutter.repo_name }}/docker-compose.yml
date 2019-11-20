@@ -1,3 +1,8 @@
+{% set processor = 'cpu' if cookiecutter.processor == "CPU" else 'gpu' %}
+{% set libraries = 'min' if cookiecutter.libraries == "Minimal" else 'full' %}
+{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else '' %}
+{% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.processor == "GPU") else cuda_version %}
+{% set volume = './:/mnt' if cookiecutter.processor == "CPU" else './:/root' %}
 version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
 services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
@@ -22,8 +27,3 @@ services:
          - "0.0.0.0:{{ cookiecutter.port }}:8888"
       stdin_open: true
       tty: true
-{% set processor = 'cpu' if cookiecutter.processor == "CPU" else 'gpu' %}
-{% set libraries = 'min' if cookiecutter.libraries == "Minimal" else 'full' %}
-{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else '' %}
-{% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.processor == "GPU") else cuda_version %}
-{% set volume = './:/mnt' if cookiecutter.processor == "CPU" else './:/root' %}
