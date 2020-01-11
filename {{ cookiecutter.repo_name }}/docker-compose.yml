@@ -2,6 +2,7 @@
 {% set libraries = 'min' if cookiecutter.libraries == "Minimal" else 'full' %}
 {% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else '' %}
 {% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.processor == "GPU") else cuda_version %}
+{% set cuda_version = '/90' if (cookiecutter.cuda == "9.0") and (cookiecutter.processor == "GPU") else cuda_version %}
 {% set volume = './:/mnt' if cookiecutter.processor == "CPU" else './:/root' %}
 version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
 services:

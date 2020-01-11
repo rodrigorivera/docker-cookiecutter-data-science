@@ -9,7 +9,7 @@
     "aws_profile": "default",
     "python_interpreter": ["python3", "python"],
     "processor": ["GPU", "CPU"],
-    "cuda": ["10", "9.2"],
+    "cuda": ["10", "9.2", "9.0"],
     "libraries": ["Minimal", "Full"],
     "port": "8081",
     "password": "123Notebook"
