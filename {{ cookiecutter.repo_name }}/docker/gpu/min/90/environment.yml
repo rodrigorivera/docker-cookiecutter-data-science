@@ -8,7 +8,7 @@ channels:
   - anaconda
   - defaults                                                              
 dependencies:
-  - python=3.5
+  - python=3.6
   - pip
   - setuptools
   - rapids
@@ -27,4 +27,4 @@ dependencies:
   - typing
   - jupyterlab
   - jupyter
-  - tensorflow-gpu=1.0
+  - tensorflow-gpu=1.12
