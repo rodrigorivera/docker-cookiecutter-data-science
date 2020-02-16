@@ -1,18 +1,13 @@
 name: base                                                                   
 channels:
-  - base
-  - rapidsai
-  - nvidia
-  - numba                                                             
-  - conda-forge
   - anaconda
-  - defaults                                                              
+  - rapidsai
+  - nvidia                                                            
+  - pytorch                                                             
 dependencies:
-  - python=3.6
+  - python=3.7
   - pip
-  - setuptools
-  - rapids
-  - dask                                                          
+  - setuptools                                                         
   - pandas
   - scikit-learn
   - numpy
@@ -27,3 +22,7 @@ dependencies:
   - typing
   - jupyterlab
   - jupyter
+  - dask 
+  - rapids
+  - faiss-gpu 
+  - cudatoolkit=10.0

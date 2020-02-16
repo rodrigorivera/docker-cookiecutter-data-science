@@ -1,12 +1,8 @@
 name: base                                                                   
 channels:
-  - base
-  - rapidsai
-  - nvidia
-  - numba                                                             
-  - conda-forge
   - anaconda
-  - defaults                                                              
+  - rapidsai
+  - nvidia                                                            
 dependencies:
   - python=3.6
   - pip
