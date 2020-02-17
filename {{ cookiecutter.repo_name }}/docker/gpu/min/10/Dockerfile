@@ -167,15 +167,6 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
 #    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
 
 # ==================================================================
-# pytorch
-# ------------------------------------------------------------------
-
-    $PIP_INSTALL \
-        torch_nightly -f \
-        https://download.pytorch.org/whl/nightly/cu100/torch_nightly.html \
-        && \
-
-# ==================================================================
 # config & cleanup
 # ------------------------------------------------------------------
 

@@ -24,5 +24,7 @@ dependencies:
   - jupyter
   - dask 
   - rapids
+  - pytorch==1.2.0 
+  - torchvision==0.4.0
   - faiss-gpu 
   - cudatoolkit=10.0
