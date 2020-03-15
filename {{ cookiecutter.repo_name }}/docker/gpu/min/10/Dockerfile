@@ -1,5 +1,5 @@
 FROM nvidia/cuda:10.0-cudnn7-devel-ubuntu18.04
-ADD environment.yml /
+ADD environment.yml /tmp/environment.yml
 ENV LANG C.UTF-8
 ENV PATH /opt/conda/bin:$PATH
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
@@ -142,10 +142,19 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     wget --quiet https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh \
     -O ~/miniconda.sh && \
     /bin/bash ~/miniconda.sh -b -p /opt/conda && \
-    rm ~/miniconda.sh && \
+    rm ~/miniconda.sh
+ENV PATH /opt/conda/bin:$PATH
+
+RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
+    PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
+    CONDA_INSTALL="conda install -y" && \
+    GIT_CLONE="git clone --depth 10" && \
     ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
     echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
-    echo "conda activate base" >> ~/.bashrc
+    conda env create -f /tmp/environment.yml && \
+    # Pull the environment name out of the environment.yml
+    echo "conda activate $(head -1 /tmp/environment.yml | cut -d' ' -f2)" >> ~/.bashrc
+ENV PATH="/opt/conda/envs/$(head -1 /tmp/environment.yml | cut -d' ' -f2)/bin:${PATH}"
 
 RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     PIP_INSTALL="python -m pip --no-cache-dir install --upgrade" && \
@@ -153,18 +162,8 @@ RUN APT_INSTALL="apt-get install -y --no-install-recommends" && \
     GIT_CLONE="git clone --depth 10" && \
 
     # create the environment
-    conda update -n base conda -y && conda env update && \
-
-
-# ==================================================================
-# boost
-# ------------------------------------------------------------------
-
-#    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.71.0/source/boost_1_71_0.tar.gz && \
-#    tar -zxf ~/boost.tar.gz -C ~ && \
-#    cd ~/boost_* && \
-#    ./bootstrap.sh && \
-#    ./b2 install -j"$(nproc)" --prefix=/usr/local && \
+    #conda update -n $(head -1 /tmp/environment.yml | cut -d' ' -f2) -y && \
+    conda env update -n $(head -1 /tmp/environment.yml | cut -d' ' -f2) --file /tmp/environment.yml && \
 
 # ==================================================================
 # config & cleanup

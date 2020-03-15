@@ -1,9 +1,8 @@
-name: base                                                                   
+name: base2                                                                   
 channels:
   - anaconda
-  - rapidsai
-  - nvidia                                                            
-  - pytorch                                                             
+  - conda-forge                                                           
+  - pytorch                                                            
 dependencies:
   - python=3.7
   - pip
@@ -23,8 +22,5 @@ dependencies:
   - jupyterlab
   - jupyter
   - dask 
-  - rapids
   - pytorch==1.2.0 
-  - torchvision==0.4.0
-  - faiss-gpu 
-  - cudatoolkit=10.0
+  - tensorflow-gpu=1.15

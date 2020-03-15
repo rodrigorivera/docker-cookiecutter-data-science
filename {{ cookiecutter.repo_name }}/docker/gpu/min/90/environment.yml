@@ -1,13 +1,12 @@
-name: base                                                                   
+name: base2                                                                   
 channels:
   - anaconda
-  - rapidsai
-  - nvidia                                                            
+  - conda-forge                                                           
+  - pytorch
 dependencies:
   - python=3.6
   - pip
   - setuptools
-  - rapids
   - dask                                                          
   - pandas
   - scikit-learn
@@ -24,6 +23,4 @@ dependencies:
   - jupyterlab
   - jupyter
   - tensorflow-gpu=1.12
-  - pytorch==1.1.0 
-  - torchvision==0.3.0 
-  - cudatoolkit=9.0
+  - pytorch=1.1.0

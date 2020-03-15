@@ -21,9 +21,9 @@ services:
       # Runtime for GPU
       runtime: nvidia
       ipc: host
-      cpuset: "29-55"
+      #cpuset: "29-55"
       mem_limit: 64g
-      command: jupyter lab --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{ cookiecutter.password }}' --notebook-dir='/root'
+      command: /opt/conda/envs/base2/bin/jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{ cookiecutter.password }}' --notebook-dir='/root'
       {% endif %}
       ports:
          - "0.0.0.0:{{ cookiecutter.port }}:8888"
