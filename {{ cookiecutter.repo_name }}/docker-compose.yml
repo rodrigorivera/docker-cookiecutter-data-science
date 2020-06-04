@@ -1,9 +1,12 @@
 {% set processor = 'cpu' if cookiecutter.processor == "CPU" else 'gpu' %}
 {% set libraries = 'min' if cookiecutter.libraries == "Minimal" else 'full' %}
-{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else '' %}
+{% set cuda_version = '/102' if (cookiecutter.cuda == "10.2") and (cookiecutter.processor == "GPU") else '' %}
+{% set cuda_version = '/10' if (cookiecutter.cuda == "10") and (cookiecutter.processor == "GPU") else cuda_version %}
 {% set cuda_version = '/92' if (cookiecutter.cuda == "9.2") and (cookiecutter.processor == "GPU") else cuda_version %}
 {% set cuda_version = '/90' if (cookiecutter.cuda == "9.0") and (cookiecutter.processor == "GPU") else cuda_version %}
-{% set volume = './:/mnt' if cookiecutter.processor == "CPU" else './:/root' %}
+{% set volume = './:/rapids/notebooks' if (cookiecutter.processor == "GPU") and (cookiecutter.source == "Rapids") else '' %}
+{% set volume = './:/root' if (cookiecutter.processor == "GPU") and (cookiecutter.source == "Classic") else volume %}
+{% set volume = './:/mnt' if cookiecutter.processor == "CPU" else volume %}
 version: '{{ '3' if cookiecutter.processor == "CPU" else '2.3' }}'
 services:
     ntbk-{{ processor }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:  
@@ -17,7 +20,14 @@ services:
       # Entry Point for CPU
       entrypoint: bash -c "cd /mnt && jupyter notebook --NotebookApp.token='{{ cookiecutter.password }}' --ip=0.0.0.0 --allow-root && /bin/bash"
       {% endif %}
-      {%- if cookiecutter.processor == "GPU" -%}
+      {%- if (cookiecutter.processor == "GPU") and  (cookiecutter.source == "Rapids") -%}
+      # Runtime for GPU
+      runtime: nvidia
+      ipc: host
+      # mem_limit: 64g
+      command: /opt/conda/bin/jupyter notebook --no-browser --ip=0.0.0.0 --allow-root --NotebookApp.token='{{ cookiecutter.password }}' --notebook-dir='/rapids/notebooks'
+      {% endif %}
+      {%- if (cookiecutter.processor == "GPU") and (cookiecutter.source == "Classic") -%}
       # Runtime for GPU
       runtime: nvidia
       ipc: host
