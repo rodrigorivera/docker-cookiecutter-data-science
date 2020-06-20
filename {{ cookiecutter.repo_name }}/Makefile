@@ -16,6 +16,72 @@ else
 HAS_CONDA=True
 endif
 
+
+IMAGE := img_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}:{{ cookiecutter.username.lower().replace(' ', '_') }}
+CONTAINER := cntnr_{{ processor }}_{{ libraries }}-{{ cookiecutter.project_name.lower().replace(' ', '_') }}-{{ cookiecutter.username.lower().replace(' ', '_') }}
+MEM_LIM := 64g
+CPU_SET := "29-55"
+ROOT := $(shell dirname $(realpath $(firstword ${MAKEFILE_LIST})))
+
+EXPERIMENT_ID = $(subst /,_,${name})_${config}
+
+DOCKER_PARAMETERS := \
+	--user $(shell id -u) \
+	--name ${CONTAINER} \
+	--cpuset-cpus="${CPU_SET}" \
+	-v ${ROOT}:/experiment \
+	-m ${MEM_LIM} \
+	-w /experiment \
+	-e PYTHONPATH=/experiment \
+	-e STORAGE=/experiment/storage
+
+ifdef gpu
+	DOCKER_PARAMETERS += --runtime=nvidia -e NVIDIA_VISIBLE_DEVICES=$(gpu)
+endif
+
+.PHONY: test
+
+#################################################################################
+# COMMANDS                                                                      #
+#################################################################################
+
+init:
+	docker build . -t ${IMAGE}
+
+dataset:
+	docker run -it --rm ${DOCKER_PARAMETERS} ${IMAGE} python datasets/main.py build
+
+build: .require-config
+	docker run -it --rm ${DOCKER_PARAMETERS} ${IMAGE} \
+ 		python $(dir ${config})main.py --config_path=${config} build_ensemble
+
+run: .require-command
+	docker run -it --rm ${DOCKER_PARAMETERS} ${IMAGE} \
+		   bash -c "`cat ${ROOT}/${command}`"
+
+notebook: .require-port
+	docker run -d --rm ${DOCKER_PARAMETERS} -e HOME=/tmp -p $(port):8888 $(IMAGE) \
+		   bash -c "jupyter lab --ip=0.0.0.0 --no-browser --NotebookApp.token=''"
+
+test:
+	docker run -it --rm ${DOCKER_PARAMETERS} ${IMAGE} python -m unittest
+
+.require-config:
+ifndef config
+	$(error config is required)
+endif
+
+.require-command:
+ifndef command
+	$(error command is required)
+endif
+
+.require-port:
+ifndef port
+	$(error port is required)
+endif
+
+
 #################################################################################
 # COMMANDS                                                                      #
 #################################################################################
